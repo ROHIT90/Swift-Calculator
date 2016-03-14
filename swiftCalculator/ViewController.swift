@@ -9,42 +9,50 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
     var isTypingNumber = false
     var firstNumber = 0
     var secondNumber = 0
     var operation = ""
     
     @IBOutlet weak var calculatorDisplay: UILabel!
-    @IBOutlet weak var inputTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-
-    @IBAction func zeroButton_TouchUpInside(sender: AnyObject) {
+    
+    // bsically functionality for all the number pad (0-9)
+    @IBAction func zeroButton_TouchUpInside(sender: AnyObject)
+    {
         let number = sender.currentTitle
         
         if isTypingNumber {
             calculatorDisplay.text = calculatorDisplay.text! + number!!
-          //  calculatorDisplay.text = calculatorDisplay.text + number
         } else {
             calculatorDisplay.text = number
             isTypingNumber = true
         }
     }
-
-    @IBAction func operatorButton_touchUpinside(sender: AnyObject) {
+    
+    //functionality for operators
+    @IBAction func operatorButton_touchUpinside(sender: AnyObject)
+    {
         isTypingNumber = false
         firstNumber = Int(calculatorDisplay.text!)!
         operation = sender.currentTitle!!
     }
     
-    @IBAction func equalButton_TouchUpInside(sender: AnyObject) {
+    @IBAction func clearButton_TouchUpInside(sender: AnyObject)
+    {
+        calculatorDisplay.text = ""
+    }
+    //calculations once equal is pressed
+    @IBAction func equalButton_TouchUpInside(sender: AnyObject)
+    {
         isTypingNumber = false
         var result = 0
         secondNumber = Int(calculatorDisplay.text!)!
@@ -53,6 +61,12 @@ class ViewController: UIViewController {
             result = firstNumber + secondNumber
         } else if operation == "-" {
             result = firstNumber - secondNumber
+        }
+        else if operation == "/" {
+            result = firstNumber / secondNumber
+        }
+        else if operation == "*" {
+            result = firstNumber * secondNumber
         }
         
         calculatorDisplay.text = "\(result)"
